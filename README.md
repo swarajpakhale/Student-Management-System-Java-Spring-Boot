@@ -1,16 +1,14 @@
-# Student Management System Using Java & Spring Boot
+# Student Management System (Java + Spring Boot + Vercel)
 
-A robust, enterprise-grade web application for managing academic student records, developed using Java 17 LTS, Spring Boot 3.2, Spring Data JPA, Hibernate, Thymeleaf, and Bootstrap 5.
+A robust, enterprise-grade web application for managing academic student records, developed using Java 17 LTS, Spring Boot 3.2, Spring Data JPA, Hibernate, Bootstrap 5.3, and deployed on **Vercel Cloud Edge**.
 
 ---
 
-## 🌐 Live Demonstration & Deployment
-- **Live Website URL:** [https://quaky-trista-unevangelic.ngrok-free.dev](https://quaky-trista-unevangelic.ngrok-free.dev)
-- **Live Student Roster:** [https://quaky-trista-unevangelic.ngrok-free.dev/students](https://quaky-trista-unevangelic.ngrok-free.dev/students)
-- **Live RESTful API:** [https://quaky-trista-unevangelic.ngrok-free.dev/api/students](https://quaky-trista-unevangelic.ngrok-free.dev/api/students)
+## 🌐 Live Production Deployments
+- **Official Vercel Website:** [https://student-management-system-frontend-beige.vercel.app](https://student-management-system-frontend-beige.vercel.app)
+- **Backend REST API (JSON):** [https://quaky-trista-unevangelic.ngrok-free.dev/api/students](https://quaky-trista-unevangelic.ngrok-free.dev/api/students)
+- **Backend Health & Stats API:** [https://quaky-trista-unevangelic.ngrok-free.dev/api/students/stats](https://quaky-trista-unevangelic.ngrok-free.dev/api/students/stats)
 - **GitHub Repository:** [https://github.com/swarajpakhale/Student-Management-System-Java-Spring-Boot](https://github.com/swarajpakhale/Student-Management-System-Java-Spring-Boot)
-
-> **Note for Evaluators:** When visiting the live domain in a browser, click **"Visit Site"** if prompted by the security interstitial.
 
 ---
 
@@ -25,25 +23,32 @@ A robust, enterprise-grade web application for managing academic student records
 
 ---
 
+## 🏗️ Architecture & Deployment Overview
+The application is organized into a clean decoupled production architecture:
+1. **Frontend (Vercel)**: High-performance, responsive single-page application built with HTML5, CSS3, JavaScript, Bootstrap 5.3, and Bootstrap Icons. Deployed globally on Vercel's Edge Network with automated SSL and instant caching.
+2. **Backend (Spring Boot 3.2)**: Multi-tier REST service built on Java 17 LTS, Spring MVC, Spring Data JPA, and Hibernate with declarative `@Transactional` boundaries, global CORS configuration, and Jakarta Bean Validation.
+3. **Database**: Relational database supporting embedded H2 for instant evaluation and external MySQL 8.0 / PostgreSQL for production scaling via environment variables.
+
+---
+
 ## ✨ Key Features
-- **Interactive Dashboard:** Live real-time statistics (total enrolled students, active enrollment count, departmental breakdown, overall average CGPA).
-- **Comprehensive CRUD Operations:** Add, view, edit, update, and soft/hard delete student records.
-- **Dynamic Search & Filtering:** Filter student records instantly by first name, last name, email, roll number, or department.
-- **Robust Server-Side Validation:** Jakarta Bean Validation (`@NotBlank`, `@Email`, `@Pattern`, `@Min`, `@Max`, `@Past`) ensuring strict data integrity with user-friendly error banners.
-- **RESTful API Support:** Complete JSON endpoints under `/api/students` for programmatic querying and external client integration.
-- **Production & Cloud Ready:** Dynamic port binding (`${PORT:8081}`) and configurable database credentials for seamless deployment on Docker, Render, Railway, AWS, or local environments.
+- **Live Academic Dashboard:** Real-time KPI metric cards (Total Enrolled Students, CT Department Cohort, IT Cohort, and Average CGPA).
+- **Comprehensive CRUD Operations:** Add new students, view roster, edit existing records, and safely delete records with instant database synchronization.
+- **Dynamic Multi-Attribute Search:** Real-time client and server-side filtering across student name, roll number, department, and email.
+- **Defensive Validation:** Strict Jakarta Bean Validation (`@NotBlank`, `@Email`, `@Pattern`, `@DecimalMin`, `@DecimalMax`) preventing malformed data entry.
+- **Configurable API Endpoint:** In-app API configuration modal allows switching between local backend and cloud production APIs.
 
 ---
 
 ## 🛠️ Technology Stack
+- **Frontend Hosting:** Vercel (Edge Network)
+- **Frontend Stack:** Bootstrap 5.3, Bootstrap Icons, JavaScript ES6+, HTML5
 - **Backend Framework:** Spring Boot 3.2.3, Spring MVC, Spring Data JPA
-- **Programming Language:** Java 17 LTS
-- **Persistence & ORM:** Hibernate 6.x, H2 Database (local/embedded) / MySQL 8.0 (production profile)
-- **Frontend / Templating:** Thymeleaf 3, Bootstrap 5.3, Bootstrap Icons
+- **Language:** Java 17 LTS
+- **ORM & Persistence:** Hibernate 6.x, H2 Database / MySQL 8.0
 - **Validation Engine:** Jakarta Validation (Hibernate Validator)
-- **Testing Frameworks:** JUnit 5, Mockito, Spring Boot Test, MockMvc
+- **Containerization:** Docker (Eclipse Temurin JRE 17 Alpine Multi-Stage)
 - **Build Tool:** Apache Maven 3.8+
-- **Containerization:** Docker (Alpine JRE 17 Multi-Stage Build)
 
 ---
 
@@ -55,55 +60,36 @@ git clone https://github.com/swarajpakhale/Student-Management-System-Java-Spring
 cd Student-Management-System-Java-Spring-Boot
 ```
 
-### 2. Build the Application
+### 2. Run the Spring Boot Backend
 ```bash
 mvn clean package -DskipTests=true
-```
-
-### 3. Run the Application
-```bash
-mvn spring-boot:run
-```
-*Alternatively, run the packaged JAR file:*
-```bash
 java -jar target/student-management-system-1.0.0.jar
 ```
+Backend runs locally at: `http://localhost:8081`
 
-### 4. Access Local Endpoints
-- **Main Web Application:** [http://localhost:8081](http://localhost:8081)
-- **Student Directory:** [http://localhost:8081/students](http://localhost:8081/students)
-- **Add Student Form:** [http://localhost:8081/students/new](http://localhost:8081/students/new)
-- **RESTful API Endpoint:** [http://localhost:8081/api/students](http://localhost:8081/api/students)
-- **H2 Database Console:** [http://localhost:8081/h2-console](http://localhost:8081/h2-console)
-  - JDBC URL: `jdbc:h2:file:./data/studentdb`
-  - Username: `sa`
-  - Password: *(leave blank)*
+### 3. Run the Frontend Locally
+```bash
+cd frontend
+npx serve .
+```
+Or open `frontend/index.html` directly in any web browser.
 
 ---
 
-## 🐳 Docker & Cloud Deployment
+## ☁️ Deployment Instructions
 
-### 1. Run via Docker
+### Deploy Frontend to Vercel
 ```bash
-docker build -t student-management-system .
-docker run -p 8081:8081 -e PORT=8081 student-management-system
+cd frontend
+npx vercel deploy --prod --yes
 ```
 
-### 2. Deploy to Render / Railway
-This repository contains a pre-configured `render.yaml` and `Dockerfile`.
-1. Sign in to [Render](https://render.com) or [Railway](https://railway.app).
-2. Create a **New Web Service** and link this GitHub repository (`swarajpakhale/Student-Management-System-Java-Spring-Boot`).
-3. Select **Docker** environment. Render will build and deploy the container automatically.
-4. Set the environment variable `PORT=8081`.
-
----
-
-## 🧪 Automated Testing
-To execute the automated test suite with full coverage reports:
-```bash
-mvn test
-```
-All 11 unit and integration test cases validate controller routing, validation error handling, service logic, and repository persistence with a 100% pass rate.
+### Deploy Backend to Render / Cloud
+This repository includes a pre-configured `Dockerfile` and `render.yaml`.
+1. Sign in to [Render](https://render.com) and click **New Web Service**.
+2. Connect `swarajpakhale/Student-Management-System-Java-Spring-Boot`.
+3. Select **Docker** environment. Render builds and runs the container automatically.
+4. Set `PORT=8081` in environment variables.
 
 ---
 

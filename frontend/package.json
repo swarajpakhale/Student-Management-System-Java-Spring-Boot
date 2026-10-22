@@ -1,0 +1,9 @@
+{
+  "name": "student-management-system-frontend",
+  "version": "1.0.0",
+  "description": "Modern Frontend for Student Management System - YCCE Mini Project by Swaraj Surendra Pakhale",
+  "scripts": {
+    "start": "serve ."
+  },
+  "dependencies": {}
+}
